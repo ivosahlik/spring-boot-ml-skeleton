@@ -1,15 +1,21 @@
-# CURL
+# Spring Boot ML Skeleton
+
+## API Example
+
+```bash
 curl -X POST http://localhost:8080/risk/evaluate \
--H "Content-Type: application/json" \
--d '{
-"sessionFrequency": 6,
-"avgDeposit7d": 150,
-"avgDeposit30d": 80,
-"lossChasing": true
-}'
+  -H "Content-Type: application/json" \
+  -d '{
+    "sessionFrequency": 6,
+    "avgDeposit7d": 150,
+    "avgDeposit30d": 80,
+    "lossChasing": true
+  }'
+```
 
+## Doporučená package struktura
 
-# Doporučená package struktura
+```
 cz.ivosahlik.ml
 ├── controller
 ├── features
@@ -18,24 +24,37 @@ cz.ivosahlik.ml
 ├── decision
 ├── intervention
 └── audit
+```
 
-# Spring Boot ML Skeleton – ARCHITEKTURA
+## Architektura
+
+```
 ┌──────────────┐
 │  Controller  │  (REST / Kafka listener)
 └──────┬───────┘
-↓
+       ↓
 ┌──────────────┐
 │ Feature Svc  │  ← feature engineering
 └──────┬───────┘
-↓
+       ↓
 ┌──────────────┐
 │  ML Model    │  ← inference only
 └──────┬───────┘
-↓
+       ↓
 ┌──────────────┐
 │ Decision Svc │  ← rules + thresholds
 └──────┬───────┘
-↓
+       ↓
 ┌──────────────┐
 │ Intervention │  ← actions / side effects
 └──────────────┘
+```
+
+## Python Dependencies
+
+```bash
+pip install scikit-learn skl2onnx onnx
+```
+
+
+
